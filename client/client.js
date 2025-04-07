@@ -1,5 +1,6 @@
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
+const { response } = require('express');
 
 // Load the proto file
 const PROTO_PATH = '../customers.proto';
@@ -29,15 +30,55 @@ client.get({ id: '1' }, (error, response) => {
 
 // Call insert to add a new customer
 const newCustomer = {
-  name: 'Mike Jordan',
-  age: 35,
-  address: '7890 Pine St'
+  name: 'Pramit Amatya',
+  age: 23,
+  address: 'Dallu Kathmandu'
 };
+
+const updatedCustomer={
+  id: 3,
+  name: 'PumpKing',
+  age: 23,
+  address: 'Swayambhu'
+}
 
 client.insert(newCustomer, (error, response) => {
   if (!error) {
     console.log('Inserted Customer:', response);
   } else {
     console.error('Error:', error);
+  }
+});
+
+//update
+client.update(updatedCustomer, (error, response) => {
+  if (!error) {
+    // Success: log the updated customer
+    console.log('Updated Customer:', response);
+  } else {
+    if (error.code === grpc.status.NOT_FOUND) {
+      // Customer not found
+      console.log(`Customer with ID ${updatedCustomer.id} not found`);
+    } else {
+      // General error
+      console.error('Error:', error.details);
+    }
+  }
+});
+
+// Call remove to delete a customer
+client.remove({ id: '2' }, (error, response) => {
+  if (!error) {
+    console.log('Response from server:', response); 
+    // Success: log the deleted customer's ID
+    console.log(`${response.id} Deleted`); // Log the ID from the server's response
+  } else {
+    if (error.code === grpc.status.NOT_FOUND) {
+      // Customer not found
+      console.log(`Customer with ID 1 not found`);
+    } else {
+      // General error
+      console.error('Error:', error.details);
+    }
   }
 });
