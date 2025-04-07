@@ -19,14 +19,14 @@ let nextId=3;
 
 // getAll method
 function getAll(call, callback) {
-  callback(null, { customers });
+  callback(null,{customers });
 }
 
 // get method
 function get(call, callback) {
   const customer = customers.find(c => c.id === call.request.id);
   if (customer) {
-    callback(null, customer);
+    callback(null, customer);a
   } else {
     callback({
       code: grpc.status.NOT_FOUND,
