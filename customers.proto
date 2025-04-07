@@ -5,7 +5,7 @@ service CustomerService {
     rpc get (CustomerRequest) returns (Customer);
     rpc insert (Customer) returns (Customer);
     rpc update (Customer) returns (Customer);
-    rpc remove (CustomerRequest) returns (Empty);
+    rpc remove (CustomerRequest) returns (RemoveResponse);
 }
 
 message Empty {}
@@ -23,4 +23,7 @@ message Customer {
 
 message CustomerList {
     repeated Customer customers = 1;
+}
+message RemoveResponse {
+    string id = 1;  // Return the deleted customer's id
 }
