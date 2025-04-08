@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node server/server.js"
-  },
+    "start-server": "node ./server/server.js",
+    "start-processor": "node ./processor/processor.js",
+    "start-main": "node ./main/main.js",
+    "start": "concurrently \"npm run start-server\" \"npm run start-processor\" \"npm run start-main\""  },
   "author": "",
   "license": "ISC",
   "description": "",
@@ -13,6 +15,11 @@
     "@grpc/proto-loader": "^0.7.13",
     "body-parser": "^2.2.0",
     "express": "^5.1.0",
-    "hbs": "^4.2.0"
+    "hbs": "^4.2.0",
+    "nodemon": "^3.1.9",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
   }
 }
