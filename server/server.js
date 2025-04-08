@@ -2,7 +2,7 @@ const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 
 // Load the proto file
-const PROTO_PATH = '../customers.proto';
+const PROTO_PATH = './proto/customers.proto';
 const packageDefinition = protoLoader.loadSync(PROTO_PATH, {});
 const proto = grpc.loadPackageDefinition(packageDefinition).CustomerService;
 
@@ -26,7 +26,7 @@ function getAll(call, callback) {
 function get(call, callback) {
   const customer = customers.find(c => c.id === call.request.id);
   if (customer) {
-    callback(null, customer);a
+    callback(null, customer);
   } else {
     callback({
       code: grpc.status.NOT_FOUND,
@@ -84,7 +84,7 @@ server.addService(proto.service, {
 });
 
 // Start the server
-server.bindAsync('127.0.0.1:50051', grpc.ServerCredentials.createInsecure(), () => {
-  console.log('Server running at http://127.0.0.1:50051');
+server.bindAsync('0.0.0.0:50051', grpc.ServerCredentials.createInsecure(), () => {
+  console.log('Server running at http://0.0.0.0:50051');
   server.start();
 });
