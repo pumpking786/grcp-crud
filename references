@@ -1,1 +1,14 @@
 https://medium.com/@satishios25/grpc-communication-between-micro-services-in-node-js-express-5a5c31ff8b6b
+Task 
+A simple blog application with two types of users:
+
+    Users (content creators) - can create, read, update, delete, like, dislike blog posts
+    Users should also be able to filter out blogs liked and disliked by them.
+    Users need to be authenticated.
+    User - should have at least username, password
+    
+    Viewers (content readers) - can only read blog posts
+    
+    Blog - should have at least title, content and author
+    
+    Analytics - Analytics endpoint to see total number of users and blogs
